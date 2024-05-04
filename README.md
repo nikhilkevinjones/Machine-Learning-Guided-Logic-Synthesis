@@ -4,6 +4,7 @@ Logic Synthesis involves transforming high-level behavioral descriptions into de
 
 ## Model Architecture
 The model for the ML task for logic synthesis uses supervised learning to predict the quality of the synthesis result. We consider a simple architecture as shown in the figure below, which comprises of:
+![arch](https://github.com/nikhilkevinjones/Machine-Learning-Guided-Logic-Synthesis/blob/main/archRP.png)
 1. Inputs - which includes the AIG encoding representing the netlist and the synthesis recipe encoding which represent the sequence of synthesis transformations appied to the AIG.
 2. Graph Convolution Network (GCN) - where the AIG graph is processed through a two-layer GCN. These GCN layers learn the node-level embeddings which aim to represent the connectivity patterns within the AIG.
 3. Readout Mechanism - where two readout mechanisms global max pooling and average pooling generate graph-level embeddings. These embeddings compresses all the information of the graph into a vector, which contains essential properties of the graph’s structure.
@@ -18,7 +19,15 @@ Predicting QoR of unseen synthesis recipe:
 – Prediction Task: Given an IP and a synthesis recipe (not seen during training), predicts the quality of the synthesis result, specifically the number of nodes in the AIG after synthesis.
 – Use Case: The model predicts the quality of synthesis results for new, unseen 500 recipes, enabling the selection of the best recipe without running synthesis for all options, which can be time-consuming.
 
-##Results
+## Results
 The runnable code for QoR prediction is done. Navigate to file "train2.py" by following the path - //OpenABC/models/qor/SynthNetV3/train2.py
+
 The training is performed on NVIDIA GeForce RTX 2080 Graphics Processing Unit (GPU). The loss function used is Mean Square Error (MSE) to test the model’s effectiveness. Adam optimizer is used to adjust the model’s weights during training. Adam is an adaptive learning rate optimization algorithm that adjusts the learning rates of each parameter individually. The learning rate is 0.001, batch size is 4 and a total of 20 epochs being trained. The task is implemented with Python 3.9 using machine learning framework PyTorch 1.9 and graph neural network framework PyTorch-Geometric 1.7.
 
+Training Loss 
+
+![trainloss](https://github.com/nikhilkevinjones/Machine-Learning-Guided-Logic-Synthesis/blob/main/trainingloss.png)
+
+Validation Accuracy
+
+![val](https://github.com/nikhilkevinjones/Machine-Learning-Guided-Logic-Synthesis/blob/main/validationacc.png)
